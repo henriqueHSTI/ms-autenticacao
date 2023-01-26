@@ -1,7 +1,6 @@
 package com.eldorado.microservico.autenticacao.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +18,7 @@ import java.util.Map;
 public class AuthEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
-            throws IOException, ServletException {
+            throws IOException {
         log.error("Unauthorized error: {}", authException.getMessage());
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

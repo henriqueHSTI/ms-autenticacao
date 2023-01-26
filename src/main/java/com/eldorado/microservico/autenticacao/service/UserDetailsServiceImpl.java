@@ -16,12 +16,12 @@ import java.util.Collections;
 @Service
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private final AuthUtils jwtUtils;
+    private final AuthUtils authUtils;
 
     public JwtDto doAuthentication(UserLoginDto userLoginDto, Authentication authentication) {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        var jwt = jwtUtils.generationJwtToken(authentication);
+        var jwt = authUtils.generationJwtToken(authentication);
 
         User user = (User) authentication.getPrincipal();
 
