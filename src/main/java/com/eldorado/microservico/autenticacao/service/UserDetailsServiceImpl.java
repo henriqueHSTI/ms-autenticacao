@@ -30,7 +30,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .userName(user.getUsername().replaceAll("@.*", ""))
                 .email(userLoginDto.getLogin())
                 .build();
-
     }
 
     @Override

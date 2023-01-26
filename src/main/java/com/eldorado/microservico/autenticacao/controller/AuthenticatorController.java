@@ -15,12 +15,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/eldorado/auth")
 @Slf4j
 @RequiredArgsConstructor
-public class AutenticatorController {
+public class AuthenticatorController {
 
     private final AuthenticationManager authenticationManager;
 
     private final UserDetailsServiceImpl userDetailsService;
-
 
     @PostMapping
     public ResponseEntity<JwtDto> authenticator(@RequestBody UserLoginDto userLoginDto) {
@@ -32,8 +31,7 @@ public class AutenticatorController {
                         userLoginDto.getPassword()));
 
         return ResponseEntity.ok(userDetailsService.doAuthentication(userLoginDto, authenticator));
-
-
     }
+
 
 }
