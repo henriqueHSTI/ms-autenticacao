@@ -52,8 +52,10 @@ public class SecurityConfiguration {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().requestMatchers("/eldorado/auth/**").permitAll()
-                .requestMatchers("/api/test/**").permitAll()
+                .authorizeHttpRequests()
+                .requestMatchers("/eldorado/auth/**").permitAll()
+                .requestMatchers("/user-api-docs**").permitAll()
+                .requestMatchers("/actuator**").permitAll()
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());
