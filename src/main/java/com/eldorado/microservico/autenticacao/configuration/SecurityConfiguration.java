@@ -1,5 +1,6 @@
 package com.eldorado.microservico.autenticacao.configuration;
 
+
 import com.eldorado.microservico.autenticacao.security.AuthEntryPoint;
 import com.eldorado.microservico.autenticacao.security.AuthTokenFilter;
 import com.eldorado.microservico.autenticacao.service.UserDetailsServiceImpl;
@@ -28,6 +29,7 @@ public class SecurityConfiguration {
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();
     }
+
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
