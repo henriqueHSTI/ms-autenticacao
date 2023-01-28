@@ -24,9 +24,11 @@ management:
          - beans
          - env
 
-  ms-usuario:
-    url: localhost:8080
-
 spring:
   application:
-    name: ms-usuario
+    name: ms-autenticacao
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8090/eureka
