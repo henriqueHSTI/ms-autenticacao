@@ -57,7 +57,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/eldorado/auth/**").permitAll()
                 .requestMatchers("/user-api-docs**").permitAll()
-                .requestMatchers("/actuator**").permitAll()
+                .requestMatchers("/actuator/**").permitAll()
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());

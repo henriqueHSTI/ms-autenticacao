@@ -1,7 +1,7 @@
 package com.eldorado.microservico.autenticacao.controller;
 
+import com.eldorado.commons.dto.UserLoginDto;
 import com.eldorado.microservico.autenticacao.dto.JwtDto;
-import com.eldorado.microservico.autenticacao.dto.UserLoginDto;
 import com.eldorado.microservico.autenticacao.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,17 +24,14 @@ public class AuthenticatorController {
     @PostMapping
     public ResponseEntity<JwtDto> authenticator(@RequestBody UserLoginDto userLoginDto) {
 
-        log.info("Authenticatio user {} ", userLoginDto.getLogin());
+        log.info("Authenticatio user {} ", userLoginDto.getUserName());
 
         var authenticator = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userLoginDto.getLogin(),
+                new UsernamePasswordAuthenticationToken(userLoginDto.getUserName(),
                         userLoginDto.getPassword()));
 
         return ResponseEntity.ok(userDetailsService.doAuthentication(userLoginDto, authenticator));
     }
-
-
-
 
 
 }

@@ -5,4 +5,28 @@ server:
 eldorado:
   jwt:
     secret: KaPdRgUkXp2s5v8y/B?E(H+MbQeThVmYq3t6w9z$C&F)J@NcRfUjXnZr4u7x!A%D
-    expirationMs: 300000
+    expirationMs: 1200000
+
+management:
+  endpoint:
+    health:
+      group:
+        custom:
+          show-components: always
+          show-details: always
+
+  endpoints:
+    web:
+      exposure:
+        include:
+         - health
+         - info
+         - beans
+         - env
+
+  ms-usuario:
+    url: localhost:8080
+
+spring:
+  application:
+    name: ms-usuario

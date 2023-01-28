@@ -1,9 +1,13 @@
 package com.eldorado.microservico.autenticacao.service;
 
+import com.eldorado.commons.dto.UserLoginDto;
 import com.eldorado.microservico.autenticacao.dto.JwtDto;
-import com.eldorado.microservico.autenticacao.dto.UserLoginDto;
+import com.eldorado.microservico.autenticacao.feign.UserInterface;
 import com.eldorado.microservico.autenticacao.security.AuthUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -18,6 +22,15 @@ import java.util.Collections;
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final AuthUtils authUtils;
 
+    private final ObjectMapper objectMapper;
+
+    @Autowired
+    private UserInterface userInterface;
+
+
+
+
+
     public JwtDto doAuthentication(UserLoginDto userLoginDto, Authentication authentication) {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -28,13 +41,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return JwtDto.builder()
                 .token(jwt)
                 .userName(user.getUsername().replaceAll("@.*", ""))
-                .email(userLoginDto.getLogin())
+                .email(userLoginDto.getUserName())
                 .build();
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
-        return new User("eldorado@eldorado.com",
-                "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6", Collections.emptyList());
+    public UserDetails loadUserByUsername(String userName) {
+
+
+        var userDto = userInterface.getLogin(UserLoginDto.builder().userName(userName).build()).getBody();
+
+        return new User(userDto.getUserName(),
+                userDto.getPassword(), Collections.emptyList());
     }
+
 }

@@ -9,7 +9,7 @@ import lombok.*;
 public class UserLoginDto {
 
     @NonNull
-    private String login;
-    @NonNull
+    private String userName;
+
     private String password;
 }
